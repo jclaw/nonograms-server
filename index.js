@@ -32,9 +32,9 @@ app.get('/random-board', function(request, response) {
 	var reqdata = request.query;
 	var data,
 		board = [],
-		width = reqdata.width,
-		height = reqdata.height,
-		whitespace = reqdata.whitespace;
+		width = parseInt(reqdata.width),
+		height = parseInt(reqdata.height),
+		whitespace = parseInt(reqdata.whitespace);
 
 	for (var r = 0; r < height; r++) {
 		var temp = [];
@@ -46,8 +46,8 @@ app.get('/random-board', function(request, response) {
 
 	data = {
 		name: width + 'x' + height + ' random board',
-		height: height,
-		width: width
+		height: parseInt(height),
+		width: parseInt(width)
 	};
 	data.row_data = [];
 	data.col_data = [];
