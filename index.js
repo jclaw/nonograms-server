@@ -1,6 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var validator = require('validator'); // See documentation at https://github.com/chriso/validator.js
+// var request = require('request');
+var fs = require('fs');
 
 var app = express();
 
@@ -25,6 +27,81 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
+
+app.get('/levels', function(request, response) {
+	response.set('Content-Type', 'application/json');
+
+	var data = create_levels(12);
+
+	// var obj;
+	// fs.readFile('assets/levels/L12.json', 'utf8', function (err, data) {
+	// 	if (err) throw err;
+	// 	response.send(data);
+	// });
+
+	response.send(data);
+});
+
+function create_levels(num_levels) {
+	var levels = [];
+	for (var index = 0; index < num_levels; index++) {
+		var i = index < 10 ? '0' + index : index.toString();
+		try {
+			var obj = JSON.parse(fs.readFileSync('assets/levels/L'+ i + '.json', 'utf8'));
+			levels[index] = obj.board;
+		}
+		catch (err) {
+			levels[index] = {name: ''};
+			console.log('error: ' + err);
+		}
+	}
+	// recursive_JSON_request(0, num_levels, levels);
+	return levels;
+}
+
+function recursive_JSON_request(index, max, levels) {
+	if (index >= max) return;
+	var i = index < 10 ? '0' + index : index.toString();
+	try {
+		var obj = JSON.parse(fs.readFileSync('assets/levels/L'+ i + '.json', 'utf8'));
+		levels[index] = obj.board;
+	}
+	catch (err) {
+		levels[index] = {name: ''};
+		console.log('error: ' + err);
+	}
+	index++;
+	recursive_JSON_request(index, max);
+
+	// var req = request('http://localhost:5000/assets/levels/L'+ i + '.json', function (error, response, body) {
+	// 	if (error) console.log(error);
+ //  		else if (response.statusCode == 200) {
+ //  			console.log('here');
+ //    		console.log(body); 
+ //  		} else {
+ //  			console.log('statusCode ' + response.statusCode);
+ //  			levels[index] = {name: ''};
+ //  		}
+ //  		index++;
+	// 	recursive_JSON_request(index, max);
+
+	// });
+
+	// var jqxhr = $.getJSON('assets/levels/L'+ i + '.json', function(d) {
+	
+	// })
+	// .done(function(d) {
+	// 	levels[index] = d.board;
+	// })
+	// .fail(function() {
+	// 	levels[index] = {name: ''};
+	// })
+	// .always(function() {
+	// 	index++;
+	// 	recursive_JSON_request(index, max);
+	// });
+}
+
 
 app.get('/random-board', function(request, response) {
 	response.set('Content-Type', 'application/json');
