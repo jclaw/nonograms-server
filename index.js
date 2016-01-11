@@ -33,12 +33,6 @@ app.get('/levels', function(request, response) {
 
 	var data = create_levels(12);
 
-	// var obj;
-	// fs.readFile('assets/levels/L12.json', 'utf8', function (err, data) {
-	// 	if (err) throw err;
-	// 	response.send(data);
-	// });
-
 	response.send(data);
 });
 
@@ -73,33 +67,6 @@ function recursive_JSON_request(index, max, levels) {
 	index++;
 	recursive_JSON_request(index, max);
 
-	// var req = request('http://localhost:5000/assets/levels/L'+ i + '.json', function (error, response, body) {
-	// 	if (error) console.log(error);
- //  		else if (response.statusCode == 200) {
- //  			console.log('here');
- //    		console.log(body); 
- //  		} else {
- //  			console.log('statusCode ' + response.statusCode);
- //  			levels[index] = {name: ''};
- //  		}
- //  		index++;
-	// 	recursive_JSON_request(index, max);
-
-	// });
-
-	// var jqxhr = $.getJSON('assets/levels/L'+ i + '.json', function(d) {
-	
-	// })
-	// .done(function(d) {
-	// 	levels[index] = d.board;
-	// })
-	// .fail(function() {
-	// 	levels[index] = {name: ''};
-	// })
-	// .always(function() {
-	// 	index++;
-	// 	recursive_JSON_request(index, max);
-	// });
 }
 
 
