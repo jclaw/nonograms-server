@@ -1,6 +1,6 @@
 {
 	"board": {
-		"name": "bird",
+		"name": "Bird",
 		"height": 15,
 		"width": 15,
 		"row_data": [

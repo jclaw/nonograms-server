@@ -52,6 +52,7 @@ function create_levels(num_levels) {
 	return levels;
 }
 
+
 app.get('/level', function(request, response) {
 	response.set('Content-Type', 'application/json');
 
@@ -100,7 +101,6 @@ app.get('/random-board', function(request, response) {
 	generate_data(data.col_data, board, height, width, 'col');
 
 	// print_board(board, width, height);
-
 	response.send(JSON.stringify(data));
 });
 

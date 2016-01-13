@@ -1,6 +1,6 @@
 {
 	"board": {
-		"name": "diamond",
+		"name": "Diamond",
 		"height": 5,
 		"width": 5,
 		"row_data": [
