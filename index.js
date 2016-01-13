@@ -46,29 +46,29 @@ function create_levels(num_levels) {
 		}
 		catch (err) {
 			levels[index] = {name: ''};
-			console.log('error: ' + err);
+			console.log(err);
 		}
 	}
-	// recursive_JSON_request(0, num_levels, levels);
 	return levels;
 }
 
-function recursive_JSON_request(index, max, levels) {
-	if (index >= max) return;
+app.get('/level', function(request, response) {
+	response.set('Content-Type', 'application/json');
+
+	var index = parseInt(request.query.index);
 	var i = index < 10 ? '0' + index : index.toString();
+	var level;
+
 	try {
-		var obj = JSON.parse(fs.readFileSync('assets/levels/L'+ i + '.json', 'utf8'));
-		levels[index] = obj.board;
+		var level = JSON.parse(fs.readFileSync('assets/levels/L'+ i + '.json', 'utf8'));
+		response.send(level);
 	}
 	catch (err) {
-		levels[index] = {name: ''};
-		console.log('error: ' + err);
+		response.send(err);
 	}
-	index++;
-	recursive_JSON_request(index, max);
 
-}
-
+	
+});
 
 app.get('/random-board', function(request, response) {
 	response.set('Content-Type', 'application/json');
