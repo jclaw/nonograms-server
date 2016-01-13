@@ -61,7 +61,7 @@ app.get('/level', function(request, response) {
 
 	try {
 		var level = JSON.parse(fs.readFileSync('assets/levels/L'+ i + '.json', 'utf8'));
-		response.send(level);
+		response.send(level.board);
 	}
 	catch (err) {
 		response.send(err);
